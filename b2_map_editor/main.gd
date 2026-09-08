@@ -6,7 +6,9 @@ enum EDITING_MODE {
 	AREA
 }
 
-const node_tex : Texture2D = preload("res://node.png")
+var global_id_counter : int = 0
+
+const node_tex : Texture2D = preload("res://textures/node.png")
 const SAVE_PATH : String = "user://test_map.json"
 
 var editing_mode : EDITING_MODE = EDITING_MODE.SENT
@@ -38,6 +40,7 @@ var map_side_entity : EntityMapSideReference
 var map_side : MapSideReference
 
 func _ready() -> void:
+	
 	track1 = Track.new()
 	track1.side = 2
 	track1.width = 3.0
@@ -127,9 +130,7 @@ func _ready() -> void:
 	data_entity.entity_children.append(areas_list)
 	data_entity.entity_children.append(map_side_entity)
 	
-	test_entity = Entity.new()
-	test_entity.entity_id = 1
-	test_entity.entity_name = "Root"
+	test_entity = Entity.new(1, "Root", null, $Tree)
 	test_entity.entity_children.append(data_entity)
 	
 	test_header = Header.new()
@@ -162,7 +163,8 @@ func add_sent_path_node() -> void:
 	trs.scale = Vector2(0.5, 0.5)
 	trs.texture = node_tex
 	trs.position = mouse_pos
-	add_child(trs)
+	trs.modulate = Color(0.0, 1.0, 0.0)
+	$Nodes.add_child(trs)
 	var etpn := EntityTrackPathNode.new()
 	etpn.entity_id = sent_curr_id
 	sent_curr_id += 1
@@ -175,17 +177,17 @@ func add_sent_path_node() -> void:
 	if (sent_curr_path_node >= 2):
 		track1_nodes[sent_curr_path_node - 1].node_type = 2
 	sent_curr_path_node += 1
-	etpn.entity_translation = Vector3(((mouse_pos.x - 105) * 0.36), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
+	etpn.entity_translation = Vector3((((mouse_pos.x - 105) * 0.36) - 170), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
 	track1_nodes.append(etpn)
 
 func add_nats_path_node() -> void:
 	var mouse_pos := get_global_mouse_position()
 	var trs := Sprite2D.new()
 	trs.scale = Vector2(0.5, 0.5)
-	trs.modulate = Color(1.0,0.0, 0.0)
+	trs.modulate = Color(1.0, 0.0, 0.0)
 	trs.texture = node_tex
 	trs.position = mouse_pos
-	add_child(trs)
+	$Nodes.add_child(trs)
 	var etpn := EntityTrackPathNode.new()
 	etpn.entity_id = nats_curr_id
 	nats_curr_id += 1
@@ -198,7 +200,7 @@ func add_nats_path_node() -> void:
 	if (nats_curr_path_node >= 2):
 		track2_nodes[nats_curr_path_node - 1].node_type = 2
 	nats_curr_path_node += 1
-	etpn.entity_translation = Vector3(((mouse_pos.x - 105) * 0.36), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
+	etpn.entity_translation = Vector3((((mouse_pos.x - 105) * 0.36) - 170), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
 	track2_nodes.append(etpn)
 
 func add_area_path_node() -> void:
@@ -208,13 +210,34 @@ func add_area_path_node() -> void:
 	trs.modulate = Color(0.0, 1.0, 1.0)
 	trs.texture = node_tex
 	trs.position = mouse_pos
-	add_child(trs)
+	$Nodes.add_child(trs)
 	var eman := EntityMapAreaNode.new()
 	eman.entity_id = area_curr_id
 	area_curr_id += 1
 	eman.entity_name = ""
-	eman.entity_translation = Vector3(((mouse_pos.x - 105) * 0.36), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
+	eman.entity_translation = Vector3((((mouse_pos.x - 105) * 0.36) - 170), 0.0, ((mouse_pos.y - 40) * 0.36) - 108)
 	area_nodes.append(eman)
 
 func change_mode(mode: int) -> void:
 	editing_mode = mode as EDITING_MODE
+
+func _on_button_create_entity_pressed() -> void:
+	test_entity = Entity.new(global_id_counter, $Panel/LineEditName.text, $Tree.get_selected().get_metadata(0), $Tree)
+	global_id_counter += 1
+
+func _on_tree_item_selected() -> void:
+	$Panel/ButtonCreateEntity.disabled = false
+
+func _on_button_overlay_pressed() -> void:
+	var file_dialog := FileDialog.new()
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.file_selected.connect(load_overlay.bind(file_dialog))
+	add_child(file_dialog)
+	file_dialog.popup_centered_clamped.call_deferred()
+
+func load_overlay(path : String, source : FileDialog) -> void:
+	var image := Image.load_from_file(path)
+	var overlay_texture := ImageTexture.create_from_image(image)
+	$TextureRectOverlay.texture = overlay_texture
+	source.queue_free()

@@ -4,9 +4,20 @@ var entity_id : int
 var entity_name : String
 var entity_type : String
 var entity_children : Array[Entity]
+var tree_item : TreeItem
 
-func  _init() -> void:
+func  _init(id : int = 0, name : String = "", parent : Entity = null, tree : Tree = null) -> void:
+	entity_id = id
+	entity_name = name
 	entity_type = "Empty"
+	if (parent != null):
+		parent.entity_children.append(self)
+		tree_item = tree.create_item(parent.tree_item) if tree != null else null
+	else:
+		tree_item = tree.create_item() if tree != null else null
+	if (tree_item != null):
+		tree_item.set_text(0, str(entity_name, " (", entity_type ,")"))
+		tree_item.set_metadata(0, self)
 
 func to_dict() -> Dictionary:
 	var data := {
