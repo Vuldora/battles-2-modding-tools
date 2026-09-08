@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b4encbw8qv41p"]
+
+[ext_resource type="Script" uid="uid://dpwm3uskhjmox" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://ckn34y63g1vk8" path="res://thing.png" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://q7y00diciohh" path="res://map1.png" id="2_h2yge"]
+
+[node name="Control" type="Control" unique_id=384971263]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=441590727]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 649.0
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=211032564]
+modulate = Color(1, 1, 1, 0.19607843)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 640.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = ExtResource("2_h2yge")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1579188406]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 602.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonSave" type="Button" parent="." unique_id=1211383681]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 32.0
+offset_right = 880.0
+offset_bottom = 80.0
+text = "Save Test"
+
+[node name="ButtonSent" type="Button" parent="." unique_id=464842682]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 32.0
+offset_right = 744.0
+offset_bottom = 80.0
+text = "Sent Path"
+
+[node name="ButtonNats" type="Button" parent="." unique_id=829984426]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 87.0
+offset_right = 744.0
+offset_bottom = 136.0
+text = "Nats path"
+
+[node name="ButtonArea" type="Button" parent="." unique_id=1866732498]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 144.0
+offset_right = 744.0
+offset_bottom = 192.0
+text = "Water Area"
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="pressed" from="ButtonSave" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="ButtonSent" to="." method="change_mode" binds= [0]]
+[connection signal="pressed" from="ButtonNats" to="." method="change_mode" binds= [1]]
+[connection signal="pressed" from="ButtonArea" to="." method="change_mode" binds= [2]]
