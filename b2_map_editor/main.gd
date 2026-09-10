@@ -91,7 +91,7 @@ func save_as() -> void:
 
 func _on_tree_item_selected() -> void:
 	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = false
+	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
 
 func _on_button_overlay_pressed() -> void:
 	var file_dialog := FileDialog.new()
@@ -117,6 +117,9 @@ func _on_button_add_node_pressed() -> void:
 
 func _on_button_del_node_pressed() -> void:
 	var it : TreeItem = $Tree.get_selected()
+	var node : Entity = it.get_metadata(0)
+	var parent_node : Entity = it.get_parent().get_metadata(0)
+	parent_node.entity_children.erase(node)
 	if it: it.free()
 	$ButtonAddNode.disabled = true
 	$ButtonDelNode.disabled = true
@@ -125,7 +128,7 @@ func _on_button_exit_pressed() -> void:
 	is_creating = false
 	$PanelChooseType.visible = false
 	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = false
+	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
 	$Tree.process_mode = Node.PROCESS_MODE_INHERIT
 	$TopBar.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -139,7 +142,7 @@ func done_with_creation(exit_code : int) -> void:
 		global_id_count += 1
 	is_creating = false
 	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = false
+	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
 	$Tree.process_mode = Node.PROCESS_MODE_INHERIT
 	$TopBar.process_mode = Node.PROCESS_MODE_INHERIT
 

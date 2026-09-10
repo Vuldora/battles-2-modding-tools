@@ -16,6 +16,37 @@ var track_opponent_bloon_feature_inclusive_filter_bitmask : int
 var track_opponent_bloon_feature_exclusive_filter_bitmask : int
 var source_path_id : int
 
+func _init(
+	side_ : int = 0,
+	width_ : float = 0.0,
+	is_teleporter_track_ : bool = false,
+	exclude_from_auto_track_targeting_ : bool = false,
+	track_bloon_source_bitmask_ : int = 0,
+	track_round_bloon_type_filte_bitmask_ : int = 0,
+	track_round_bloon_type_filter_string_ : String = "",
+	track_round_bloon_feature_inclusive_filter_bitmask_ : int = 0,
+	track_round_bloon_feature_exclusive_filter_bitmask_ : int = 0,
+	track_opponent_bloon_type_filte_bitmask_ : int = 0,
+	track_opponent_bloon_type_filter_string_ : String = "",
+	track_opponent_bloon_feature_inclusive_filter_bitmask_ : int = 0,
+	track_opponent_bloon_feature_exclusive_filter_bitmask_ : int = 0,
+	source_path_id_ : int = 0
+) -> void:
+	side = side_
+	width = width_
+	is_teleporter_track = is_teleporter_track_
+	exclude_from_auto_track_targeting = exclude_from_auto_track_targeting_
+	track_bloon_source_bitmask = track_bloon_source_bitmask_
+	track_round_bloon_type_filte_bitmask = track_round_bloon_type_filte_bitmask_
+	track_round_bloon_type_filter_string = track_round_bloon_type_filter_string_
+	track_round_bloon_feature_inclusive_filter_bitmask = track_round_bloon_feature_inclusive_filter_bitmask_
+	track_round_bloon_feature_exclusive_filter_bitmask = track_round_bloon_feature_exclusive_filter_bitmask_
+	track_opponent_bloon_type_filte_bitmask = track_opponent_bloon_type_filte_bitmask_
+	track_opponent_bloon_type_filter_string = track_opponent_bloon_type_filter_string_
+	track_opponent_bloon_feature_inclusive_filter_bitmask = track_opponent_bloon_feature_inclusive_filter_bitmask_
+	track_opponent_bloon_feature_exclusive_filter_bitmask = track_opponent_bloon_feature_exclusive_filter_bitmask_
+	source_path_id = source_path_id_
+
 func to_dict() -> Dictionary:
 	return {
 		"side": side,

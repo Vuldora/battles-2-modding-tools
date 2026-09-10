@@ -3,6 +3,12 @@
 [ext_resource type="Theme" uid="uid://v2ohsnwtpopy" path="res://main_theme.tres" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dpwm3uskhjmox" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://decng2vaf8aqu" path="res://textures/map_border.png" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://cugcblmel32we" path="res://textures/add_node.png" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://ci0rbcjrb755q" path="res://textures/del_node.png" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://k0sesalu6rgk" path="res://textures/add_node_disabled.png" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://dptchre20g2" path="res://textures/add_node_hover.png" id="5_kek77"]
+[ext_resource type="Texture2D" uid="uid://dejvnjpfsmdox" path="res://textures/del_node_disabled.png" id="7_5vw27"]
+[ext_resource type="Texture2D" uid="uid://c7n0y6th47qqc" path="res://textures/del_node_hover.png" id="8_4c57u"]
 
 [node name="Control" type="Control" unique_id=384971263]
 layout_mode = 3
@@ -110,23 +116,29 @@ offset_bottom = 111.0
 text = "Scene Tree"
 vertical_alignment = 1
 
-[node name="ButtonAddNode" type="Button" parent="." unique_id=2020773874]
+[node name="ButtonAddNode" type="TextureButton" parent="." unique_id=541180976]
 layout_mode = 0
 offset_left = 224.0
 offset_top = 80.0
-offset_right = 256.0
-offset_bottom = 111.0
-disabled = true
-text = "+"
+offset_right = 264.0
+offset_bottom = 120.0
+texture_normal = ExtResource("4_lquwl")
+texture_hover = ExtResource("5_kek77")
+texture_disabled = ExtResource("5_272bh")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="ButtonDelNode" type="Button" parent="." unique_id=18155192]
+[node name="ButtonDelNode" type="TextureButton" parent="." unique_id=1423438187]
 layout_mode = 0
-offset_left = 184.0
+offset_left = 176.0
 offset_top = 80.0
 offset_right = 216.0
-offset_bottom = 111.0
-disabled = true
-text = "-"
+offset_bottom = 120.0
+texture_normal = ExtResource("5_7mycd")
+texture_hover = ExtResource("8_4c57u")
+texture_disabled = ExtResource("7_5vw27")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="PanelChooseType" type="Panel" parent="." unique_id=1994629068]
 visible = false

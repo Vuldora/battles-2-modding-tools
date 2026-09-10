@@ -19,6 +19,7 @@ func _init(text : String, minv : float, defv : float, maxv : float, ticks : int)
 	slider.position.x = 48.0
 	slider.size = Vector2(184.0, 24.0)
 	slider.min_value = minv
+	slider.value = defv
 	slider.max_value = maxv
 	slider.tick_count = ticks
 	slider.ticks_on_borders = true
