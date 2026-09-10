@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b4encbw8qv41p"]
 
+[ext_resource type="Theme" uid="uid://v2ohsnwtpopy" path="res://main_theme.tres" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dpwm3uskhjmox" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://decng2vaf8aqu" path="res://textures/map_border.png" id="2_0xm2m"]
 
@@ -10,139 +11,174 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_h2yge")
 script = ExtResource("1_ig7tw")
+
+[node name="TopBar" type="Control" parent="." unique_id=2086037808]
+anchors_preset = 0
+
+[node name="Files" type="MenuButton" parent="TopBar" unique_id=1169191541]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 112.0
+offset_bottom = 48.0
+text = "File "
+flat = false
+switch_on_hover = true
+item_count = 11
+popup/item_0/text = "New"
+popup/item_0/id = 0
+popup/item_1/text = "Open"
+popup/item_1/id = 1
+popup/item_1/disabled = true
+popup/item_2/text = "Open Recent"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+popup/item_3/id = 5
+popup/item_3/disabled = true
+popup/item_3/separator = true
+popup/item_4/text = "Save"
+popup/item_4/id = 3
+popup/item_5/text = "Save As"
+popup/item_5/id = 4
+popup/item_6/id = 6
+popup/item_6/disabled = true
+popup/item_6/separator = true
+popup/item_7/text = "Undo"
+popup/item_7/id = 5
+popup/item_7/disabled = true
+popup/item_8/text = "Redo"
+popup/item_8/id = 6
+popup/item_8/disabled = true
+popup/item_9/id = 7
+popup/item_9/disabled = true
+popup/item_9/separator = true
+popup/item_10/text = "Quit"
+popup/item_10/id = 7
+
+[node name="View" type="MenuButton" parent="TopBar" unique_id=1192031073]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 48.0
+text = "View"
+flat = false
 
 [node name="ColorRectBackground" type="ColorRect" parent="." unique_id=441590727]
 layout_mode = 0
-offset_left = 560.0
-offset_top = 24.0
-offset_right = 1064.0
-offset_bottom = 648.0
+offset_left = 280.0
+offset_top = 80.0
+offset_right = 1264.0
+offset_bottom = 696.0
 
 [node name="TextureRectOverlay" type="TextureRect" parent="." unique_id=395768347]
 layout_mode = 0
-offset_left = 576.0
-offset_top = 40.0
-offset_right = 1048.0
-offset_bottom = 648.0
+offset_left = 280.0
+offset_top = 80.0
+offset_right = 1264.0
+offset_bottom = 696.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Nodes" type="Control" parent="." unique_id=1662642431]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="TextureRectBorder" type="TextureRect" parent="." unique_id=1579188406]
 layout_mode = 0
-offset_left = 552.0
-offset_right = 1151.0
-offset_bottom = 648.0
+offset_left = 280.0
+offset_top = 72.0
+offset_right = 1264.0
+offset_bottom = 704.0
 mouse_filter = 2
 texture = ExtResource("2_0xm2m")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonSave" type="Button" parent="." unique_id=1211383681]
-layout_mode = 0
-offset_left = 424.0
-offset_top = 16.0
-offset_right = 536.0
-offset_bottom = 64.0
-text = "Save File"
-
-[node name="ButtonSent" type="Button" parent="." unique_id=464842682]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 24.0
-offset_right = 152.0
-offset_bottom = 72.0
-text = "Sent Path"
-
-[node name="ButtonNats" type="Button" parent="." unique_id=829984426]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 79.0
-offset_right = 152.0
-offset_bottom = 128.0
-text = "Nats path"
-
-[node name="ButtonArea" type="Button" parent="." unique_id=1866732498]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 136.0
-offset_right = 152.0
-offset_bottom = 184.0
-text = "Water Area"
-
 [node name="Tree" type="Tree" parent="." unique_id=1073663916]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 368.0
-offset_right = 280.0
-offset_bottom = 632.0
+offset_top = 120.0
+offset_right = 264.0
+offset_bottom = 704.0
 
-[node name="Panel" type="Panel" parent="." unique_id=1603487385]
+[node name="Label2" type="Label" parent="." unique_id=1746243226]
 layout_mode = 0
-offset_left = 296.0
-offset_top = 432.0
-offset_right = 536.0
-offset_bottom = 632.0
+offset_left = 24.0
+offset_top = 88.0
+offset_right = 112.0
+offset_bottom = 111.0
+text = "Scene Tree"
+vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Panel" unique_id=997515406]
+[node name="ButtonAddNode" type="Button" parent="." unique_id=2020773874]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 80.0
+offset_right = 256.0
+offset_bottom = 111.0
+disabled = true
+text = "+"
+
+[node name="ButtonDelNode" type="Button" parent="." unique_id=18155192]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 80.0
+offset_right = 216.0
+offset_bottom = 111.0
+disabled = true
+text = "-"
+
+[node name="PanelChooseType" type="Panel" parent="." unique_id=1994629068]
+visible = false
+layout_mode = 0
+offset_left = 488.0
+offset_top = 264.0
+offset_right = 792.0
+offset_bottom = 416.0
+
+[node name="ButtonExit" type="Button" parent="PanelChooseType" unique_id=634969600]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 298.0
+offset_bottom = 40.0
+text = "X"
+
+[node name="Label" type="Label" parent="PanelChooseType" unique_id=1428127367]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 56.0
-offset_right = 64.0
-offset_bottom = 88.0
-text = "name"
+offset_top = 8.0
+offset_right = 152.0
+offset_bottom = 31.0
+text = "Choose Node Type"
 
-[node name="LineEditName" type="LineEdit" parent="Panel" unique_id=1537438530]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 56.0
-offset_right = 224.0
-offset_bottom = 87.0
-
-[node name="ButtonCreateEntity" type="Button" parent="Panel" unique_id=1350072398]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 144.0
-offset_right = 176.0
-offset_bottom = 184.0
-disabled = true
-text = "Create"
-
-[node name="Label" type="Label" parent="." unique_id=1254386630]
-layout_mode = 0
-offset_left = 360.0
-offset_top = 440.0
-offset_right = 461.0
-offset_bottom = 463.0
-text = "Create Entity"
-
-[node name="Label" type="Label" parent="Label" unique_id=1746243226]
-layout_mode = 0
-offset_left = -256.0
-offset_top = -96.0
-offset_right = -172.0
-offset_bottom = -73.0
-text = "Scene Tree"
-
-[node name="ButtonOverlay" type="Button" parent="." unique_id=1568338932]
+[node name="OptionButton" type="OptionButton" parent="PanelChooseType" unique_id=552232288]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 192.0
-offset_right = 184.0
-offset_bottom = 240.0
-text = "Overlay Texture"
+offset_top = 56.0
+offset_right = 264.0
+offset_bottom = 87.0
+selected = 0
+item_count = 4
+popup/item_0/text = "Empty"
+popup/item_0/id = 0
+popup/item_1/text = "MapArea"
+popup/item_1/id = 1
+popup/item_2/text = "MapSideReference"
+popup/item_2/id = 2
+popup/item_3/text = "Track"
+popup/item_3/id = 3
 
-[connection signal="gui_input" from="ColorRectBackground" to="." method="_on_color_rect_gui_input"]
-[connection signal="pressed" from="ButtonSave" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="ButtonSent" to="." method="change_mode" binds= [0]]
-[connection signal="pressed" from="ButtonNats" to="." method="change_mode" binds= [1]]
-[connection signal="pressed" from="ButtonArea" to="." method="change_mode" binds= [2]]
+[node name="ButtonContinueNode" type="Button" parent="PanelChooseType" unique_id=2007911218]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 104.0
+offset_right = 216.0
+offset_bottom = 136.0
+text = "Continue"
+
 [connection signal="item_selected" from="Tree" to="." method="_on_tree_item_selected"]
-[connection signal="pressed" from="Panel/ButtonCreateEntity" to="." method="_on_button_create_entity_pressed"]
-[connection signal="pressed" from="ButtonOverlay" to="." method="_on_button_overlay_pressed"]
+[connection signal="pressed" from="ButtonAddNode" to="." method="_on_button_add_node_pressed"]
+[connection signal="pressed" from="ButtonDelNode" to="." method="_on_button_del_node_pressed"]
+[connection signal="pressed" from="PanelChooseType/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="PanelChooseType/ButtonContinueNode" to="." method="_on_button_continue_node_pressed"]

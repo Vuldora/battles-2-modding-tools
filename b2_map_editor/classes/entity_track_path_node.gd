@@ -21,5 +21,5 @@ func from_dict(data : Dictionary) -> void:
 	var path_node = data.get("path_node", {})
 	node_type = path_node.get("node_type", -1)
 	next_node = path_node.get("next_node", -1)
-	var trans_arr : Array[float] = data.get("entity_translation", [0, 0, 0])
+	var trans_arr : Array[float] = data.get("entity_translation", [0.0, 0.0, 0.0])
 	entity_translation = Vector3(trans_arr[0], trans_arr[1], trans_arr[2])
