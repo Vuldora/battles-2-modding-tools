@@ -260,7 +260,7 @@ func _on_color_rect_background_gui_input(event: InputEvent) -> void:
 					node,
 					$Control/Tree,
 					0 if node.entity_children.size() == 0 else 2,
-					0 if node.entity_children.size() == 0 else global_id_count + 1 ,
+					global_id_count + 1,
 					canvas_pos_to_pos(get_global_mouse_position()),
 					visual
 				)

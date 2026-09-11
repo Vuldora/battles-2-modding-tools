@@ -49,7 +49,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	for t in [
 		"Side",
 		"Width",
-		"Bloon source bitmask",
+		"Sent or Naturals",
 		"Bloon type filter bitmask (natural)",
 		"Bloon type filter string (natural)",
 		"Bloon feature inclusive filter bitmask (natural)",
@@ -78,12 +78,14 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	slider_width.name = "slider_width"
 	slider_width.position = Vector2(-32.0, 184.0)
 	
-	var line_edit_bloon_source := LineEdit.new()
-	root.add_child(line_edit_bloon_source)
-	line_edit_bloon_source.name = "line_edit_bloon_source"
-	line_edit_bloon_source.size = Vector2(160.0, 32.0)
-	line_edit_bloon_source.position = Vector2(16.0, 252.0)
-	line_edit_bloon_source.text = "2"
+	var option_button_bloon_source := OptionButton.new()
+	root.add_child(option_button_bloon_source)
+	option_button_bloon_source.add_item("Natural", 1)
+	option_button_bloon_source.add_item("Sent", 2)
+	option_button_bloon_source.add_item("Both", 3)
+	option_button_bloon_source.name = "option_button_bloon_source"
+	option_button_bloon_source.size = Vector2(160.0, 32.0)
+	option_button_bloon_source.position = Vector2(16.0, 252.0)
 	
 	var line_edit_type_bit_nats := LineEdit.new()
 	root.add_child(line_edit_type_bit_nats)
@@ -164,7 +166,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 				slider_width.get_value(),
 				check_teleporter.button_pressed,
 				check_exclude_auto.button_pressed,
-				int(line_edit_bloon_source.text),
+				option_button_bloon_source.get_selected_id(),
 				int(line_edit_type_bit_nats.text),
 				line_edit_type_str_nats.text,
 				int(line_edit_feat_inc_nats.text),
@@ -196,7 +198,7 @@ func get_edit_ui(done_func : Callable) -> Control:
 	root.get_node("slider_width").set_value(track.width)
 	root.get_node("check_teleporter").button_pressed = track.is_teleporter_track
 	root.get_node("check_exclude_auto").button_pressed = track.exclude_from_auto_track_targeting
-	root.get_node("line_edit_bloon_source").text = str(track.track_bloon_source_bitmask)
+	root.get_node("option_button_bloon_source").select(track.track_bloon_source_bitmask - 1)
 	root.get_node("line_edit_type_bit_nats").text = str(track.track_round_bloon_type_filte_bitmask)
 	root.get_node("line_edit_type_str_nats").text = track.track_round_bloon_type_filter_string
 	root.get_node("line_edit_feat_inc_nats").text = str(track.track_round_bloon_feature_inclusive_filter_bitmask)
@@ -215,7 +217,7 @@ func get_edit_ui(done_func : Callable) -> Control:
 			track.width = root.get_node("slider_width").get_value()
 			track.is_teleporter_track = root.get_node("check_teleporter").button_pressed
 			track.exclude_from_auto_track_targeting = root.get_node("check_exclude_auto").button_pressed
-			track.track_bloon_source_bitmask = int(root.get_node("line_edit_bloon_source").text)
+			track.track_bloon_source_bitmask = root.get_node("option_button_bloon_source").get_selected_id()
 			track.track_round_bloon_type_filte_bitmask = int(root.get_node("line_edit_type_bit_nats").text)
 			track.track_round_bloon_type_filter_string = root.get_node("line_edit_type_str_nats").text
 			track.track_round_bloon_feature_inclusive_filter_bitmask = int(root.get_node("line_edit_feat_inc_nats").text)
