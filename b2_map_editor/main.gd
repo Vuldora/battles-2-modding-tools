@@ -250,6 +250,7 @@ func _on_color_rect_background_gui_input(event: InputEvent) -> void:
 				visual.gui_input.connect(_on_visualnode_gui_input.bind(visual))
 				global_id_count += 1
 			if node is EntityTrack:
+					
 				var visual := VisualNode.new()
 				$VisualNodes.add_child(visual)
 				visual.position = get_global_mouse_position()
@@ -258,8 +259,8 @@ func _on_color_rect_background_gui_input(event: InputEvent) -> void:
 					str("node_", global_id_count),
 					node,
 					$Control/Tree,
-					2,
-					global_id_count - 1,
+					0 if node.entity_children.size() == 0 else 2,
+					0 if node.entity_children.size() == 0 else global_id_count + 1 ,
 					canvas_pos_to_pos(get_global_mouse_position()),
 					visual
 				)
