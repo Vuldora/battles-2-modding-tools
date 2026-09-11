@@ -105,6 +105,9 @@ func get_edit_ui(done_func : Callable) -> Control:
 	var line_edit : LineEdit = root.get_node("line_edit")
 	for c in create_button.pressed.get_connections():
 		create_button.pressed.disconnect(c.callable)
+	
+	line_edit.text = entity_name
+	
 	create_button.text = "Confirm"
 	create_button.pressed.connect(
 		func():

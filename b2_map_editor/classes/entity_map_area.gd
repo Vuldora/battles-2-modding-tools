@@ -46,6 +46,8 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var line_edit_side := LineEdit.new()
 	root.add_child(line_edit_side)
+	line_edit_side.name = "line_edit_side"
+	line_edit_side.text = "Right"
 	line_edit_side.position = Vector2(156.0, 96.0)
 	line_edit_side.size.x = 128.0
 	
@@ -56,6 +58,8 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var line_edit_type := LineEdit.new()
 	root.add_child(line_edit_type)
+	line_edit_type.name = "line_edit_type"
+	line_edit_type.text = "Water"
 	line_edit_type.position = Vector2(156.0, 136.0)
 	line_edit_type.size.x = 128.0
 	
@@ -66,6 +70,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var spinbox_souce := SpinBox.new()
 	root.add_child(spinbox_souce)
+	spinbox_souce.name = "spinbox_souce"
 	spinbox_souce.position = Vector2(172.0, 176.0)
 	
 	var label_layer := Label.new()
@@ -75,16 +80,19 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var spinbox_layer := SpinBox.new()
 	root.add_child(spinbox_layer)
+	spinbox_layer.name = "spinbox_layer"
 	spinbox_layer.position = Vector2(172.0, 216.0)
 	
 	var slider_elevation := GenericSlider.new("Elevation Offset", 0.0, 0.0, 10.0, 6)
 	root.add_child(slider_elevation)
+	slider_elevation.name = "slider_elevation"
 	slider_elevation.position = Vector2(16.0, 256.0)
 	slider_elevation.slider.position.x += 96.0
 	slider_elevation.slider.size.x -= 96.0
 	
 	var slider_hit := GenericSlider.new("Hit Area Offset", 0.0, 0.0, 10.0, 6)
 	root.add_child(slider_hit)
+	slider_hit.name = "slider_hit"
 	slider_hit.position = Vector2(16.0, 296.0)
 	slider_hit.slider.position.x += 96.0
 	slider_hit.slider.size.x -= 96.0
@@ -96,6 +104,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var check_removable := CheckButton.new()
 	root.add_child(check_removable)
+	check_removable.name = "check_removable"
 	check_removable.position = Vector2(192.0, 336.0)
 	
 	var label_teleporter := Label.new()
@@ -105,6 +114,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var check_teleporter := CheckButton.new()
 	root.add_child(check_teleporter)
+	check_teleporter.name = "check_teleporter"
 	check_teleporter.position = Vector2(192.0, 368.0)
 	
 	var label_bone := Label.new()
@@ -114,6 +124,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var check_bone := CheckButton.new()
 	root.add_child(check_bone)
+	check_bone.name = "check_bone"
 	check_bone.position = Vector2(192.0, 400.0)
 	
 	create_button.position = Vector2(120.0, 440.0)
@@ -136,4 +147,43 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 			root.queue_free()
 	)
 	
+	return root
+
+func get_edit_ui(done_func : Callable) -> Control:
+	var root : Panel = get_creation_ui(null, 0, done_func)
+	var title : Label = root.get_node("title")
+	title.text = "Edit MapArea Node"
+	var create_button : Button = root.get_node("create_button")
+	var line_edit : LineEdit = root.get_node("line_edit")
+	for c in create_button.pressed.get_connections():
+		create_button.pressed.disconnect(c.callable)
+	
+	line_edit.text = entity_name
+	root.get_node("line_edit_side").text = map_area.side 
+	root.get_node("line_edit_type").text = map_area.type 
+	root.get_node("spinbox_souce").value = map_area.source_entity_id
+	root.get_node("spinbox_layer").value = map_area.layer
+	root.get_node("slider_elevation").set_value(map_area.elevation_offset)
+	root.get_node("slider_hit").set_value(map_area.hit_area_offset)
+	root.get_node("check_removable").button_pressed = map_area.is_removable
+	root.get_node("check_teleporter").button_pressed = map_area.is_teleporter
+	root.get_node("check_bone").button_pressed = map_area.attached_to_bone
+	
+	create_button.text = "Confirm"
+	create_button.pressed.connect(
+		func():
+			entity_name = line_edit.text
+			map_area.side = root.get_node("line_edit_side").text
+			map_area.type = root.get_node("line_edit_type").text
+			map_area.source_entity_id = int(root.get_node("spinbox_souce").value)
+			map_area.layer = int(root.get_node("spinbox_layer").value)
+			map_area.elevation_offset = root.get_node("slider_elevation").get_value()
+			map_area.hit_area_offset = root.get_node("slider_hit").get_value()
+			map_area.is_removable = root.get_node("check_removable").button_pressed
+			map_area.is_teleporter = root.get_node("check_teleporter").button_pressed
+			map_area.attached_to_bone = root.get_node("check_bone").button_pressed
+			tree_item.set_text(0, str(entity_id ,"| ", entity_name, " (", entity_type, ")"))
+			done_func.call(1)
+			root.queue_free()
+	)
 	return root

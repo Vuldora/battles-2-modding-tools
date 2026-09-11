@@ -69,6 +69,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var spin_box_side := SpinBox.new()
 	root.add_child(spin_box_side)
+	spin_box_side.name = "spin_box_side"
 	spin_box_side.value = 1
 	spin_box_side.position = Vector2(196.0, 200.0)
 	
@@ -79,6 +80,7 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var spin_box_mode := SpinBox.new()
 	root.add_child(spin_box_mode)
+	spin_box_mode.name = "spin_box_mode"
 	spin_box_mode.value = 1
 	spin_box_mode.position = Vector2(196.0, 236.0)
 	
@@ -92,4 +94,36 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 			root.queue_free()
 	)
 	
+	return root
+
+
+func get_edit_ui(done_func : Callable) -> Control:
+	var root : Panel = get_creation_ui(null, 0, done_func)
+	var title : Label = root.get_node("title")
+	title.text = "Edit MapSideReference Node"
+	var create_button : Button = root.get_node("create_button")
+	var line_edit : LineEdit = root.get_node("line_edit")
+	for c in create_button.pressed.get_connections():
+		create_button.pressed.disconnect(c.callable)
+	
+	line_edit.text = entity_name
+	root.get_node("DegreeSliderX").set_value(rad_to_deg(entity_rotation.x)) 
+	root.get_node("DegreeSliderY").set_value(rad_to_deg(entity_rotation.y))
+	root.get_node("DegreeSliderZ").set_value(rad_to_deg(entity_rotation.z))
+	root.get_node("spin_box_side").value = map_side_reference.side
+	root.get_node("spin_box_mode").value = map_side_reference.mode
+	
+	create_button.text = "Confirm"
+	create_button.pressed.connect(
+		func():
+			entity_name = line_edit.text
+			entity_rotation.x = root.get_node("DegreeSliderX").get_rad()
+			entity_rotation.y = root.get_node("DegreeSliderY").get_rad()
+			entity_rotation.z = root.get_node("DegreeSliderZ").get_rad()
+			map_side_reference.side = int(root.get_node("spin_box_side").value)
+			map_side_reference.mode = int(root.get_node("spin_box_mode").value)
+			tree_item.set_text(0, str(entity_id ,"| ", entity_name, " (", entity_type, ")"))
+			done_func.call(1)
+			root.queue_free()
+	)
 	return root

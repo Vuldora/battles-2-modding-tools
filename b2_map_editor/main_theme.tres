@@ -2,7 +2,15 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gsqoc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 0.9411765)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [resource]
 MenuButton/font_sizes/font_size = 12
 MenuButton/styles/normal = SubResource("StyleBoxEmpty_gsqoc")
+Panel/styles/panel = SubResource("StyleBoxFlat_w48qg")
 PopupMenu/font_sizes/font_size = 12

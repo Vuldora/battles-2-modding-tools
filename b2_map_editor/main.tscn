@@ -13,12 +13,15 @@
 [ext_resource type="Texture2D" uid="uid://biasbev78g505" path="res://textures/edit_node.png" id="10_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://ctomlw6k5pb4e" path="res://textures/edit_node_hover.png" id="11_w48qg"]
 [ext_resource type="Texture2D" uid="uid://cgigpralu1ndg" path="res://textures/edit_node_disabled.png" id="12_vivmo"]
+[ext_resource type="Texture2D" uid="uid://btlon5agb7rqp" path="res://textures/select_tool.png" id="14_w48qg"]
 
 [node name="Control" type="Control" unique_id=384971263]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_h2yge")
@@ -29,6 +32,7 @@ layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+metadata/_edit_lock_ = true
 
 [node name="TopBar" type="Control" parent="." unique_id=2086037808]
 anchors_preset = 0
@@ -84,6 +88,11 @@ offset_right = 128.0
 offset_bottom = 32.0
 text = "View"
 flat = false
+item_count = 2
+popup/item_0/text = "Add Overlay"
+popup/item_0/id = 0
+popup/item_1/text = "Clear Overlay"
+popup/item_1/id = 1
 
 [node name="ColorRectBackground" type="ColorRect" parent="." unique_id=441590727]
 layout_mode = 0
@@ -102,6 +111,9 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
+[node name="VisualNodes" type="Control" parent="." unique_id=1066305599]
+anchors_preset = 0
+
 [node name="TextureRectBorder" type="TextureRect" parent="." unique_id=1579188406]
 layout_mode = 0
 offset_left = 280.0
@@ -113,12 +125,21 @@ texture = ExtResource("2_0xm2m")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Tree" type="Tree" parent="." unique_id=1073663916]
-layout_mode = 0
+[node name="Control" type="Control" parent="." unique_id=554475848]
+anchors_preset = 0
 offset_left = 16.0
 offset_top = 104.0
 offset_right = 264.0
 offset_bottom = 704.0
+
+[node name="Tree" type="Tree" parent="Control" unique_id=1073663916]
+custom_minimum_size = Vector2(248, 600)
+custom_maximum_size = Vector2(248, 600)
+layout_mode = 0
+offset_right = 248.0
+offset_bottom = 600.0
+scroll_hint_mode = 1
+tile_scroll_hint = true
 
 [node name="Label2" type="Label" parent="." unique_id=1746243226]
 layout_mode = 0
@@ -198,15 +219,19 @@ offset_top = 56.0
 offset_right = 264.0
 offset_bottom = 87.0
 selected = 0
-item_count = 4
+item_count = 6
 popup/item_0/text = "Empty"
 popup/item_0/id = 0
 popup/item_1/text = "MapArea"
 popup/item_1/id = 1
-popup/item_2/text = "MapSideReference"
+popup/item_2/text = "MapAreaNode"
 popup/item_2/id = 2
-popup/item_3/text = "Track"
+popup/item_3/text = "MapSideReference"
 popup/item_3/id = 3
+popup/item_4/text = "Track"
+popup/item_4/id = 4
+popup/item_5/text = "TrackPathNode"
+popup/item_5/id = 5
 
 [node name="ButtonContinueNode" type="Button" parent="PanelChooseType" unique_id=2007911218]
 layout_mode = 0
@@ -216,18 +241,35 @@ offset_right = 216.0
 offset_bottom = 136.0
 text = "Continue"
 
-[node name="ToolBrush" type="Button" parent="." unique_id=144981143]
+[node name="ToolBox" type="Control" parent="." unique_id=1349241275]
+anchors_preset = 0
+
+[node name="ToolSelect" type="Button" parent="ToolBox" unique_id=835847932]
 layout_mode = 0
 offset_left = 288.0
 offset_top = 112.0
 offset_right = 360.0
 offset_bottom = 184.0
+icon = ExtResource("14_w48qg")
+expand_icon = true
+
+[node name="ToolBrush" type="Button" parent="ToolBox" unique_id=144981143]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 112.0
+offset_right = 440.0
+offset_bottom = 184.0
 tooltip_text = "Brush Tool"
+disabled = true
 icon = ExtResource("10_4c57u")
 
-[connection signal="item_selected" from="Tree" to="." method="_on_tree_item_selected"]
+[connection signal="gui_input" from="ColorRectBackground" to="." method="_on_color_rect_background_gui_input"]
+[connection signal="item_activated" from="Control/Tree" to="." method="_on_tree_item_activated"]
+[connection signal="item_selected" from="Control/Tree" to="." method="_on_tree_item_selected"]
 [connection signal="pressed" from="ButtonAddNode" to="." method="_on_button_add_node_pressed"]
 [connection signal="pressed" from="ButtonDelNode" to="." method="_on_button_del_node_pressed"]
 [connection signal="pressed" from="ButtonEditNode" to="." method="_on_button_edit_node_pressed"]
 [connection signal="pressed" from="PanelChooseType/ButtonExit" to="." method="_on_button_exit_pressed"]
 [connection signal="pressed" from="PanelChooseType/ButtonContinueNode" to="." method="_on_button_continue_node_pressed"]
+[connection signal="pressed" from="ToolBox/ToolSelect" to="." method="_on_tool_pressed" binds= [0]]
+[connection signal="pressed" from="ToolBox/ToolBrush" to="." method="_on_tool_pressed" binds= [1]]

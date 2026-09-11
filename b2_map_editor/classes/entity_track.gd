@@ -70,74 +70,88 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	
 	var spinbox_side := SpinBox.new()
 	root.add_child(spinbox_side)
+	spinbox_side.name = "spinbox_side"
 	spinbox_side.position = Vector2(16.0, 120.0)
 	
 	var slider_width := GenericSlider.new("", 0.0, 3.0, 10.0, 6)
 	root.add_child(slider_width)
+	slider_width.name = "slider_width"
 	slider_width.position = Vector2(-32.0, 184.0)
 	
 	var line_edit_bloon_source := LineEdit.new()
 	root.add_child(line_edit_bloon_source)
+	line_edit_bloon_source.name = "line_edit_bloon_source"
 	line_edit_bloon_source.size = Vector2(160.0, 32.0)
 	line_edit_bloon_source.position = Vector2(16.0, 252.0)
 	line_edit_bloon_source.text = "2"
 	
 	var line_edit_type_bit_nats := LineEdit.new()
 	root.add_child(line_edit_type_bit_nats)
+	line_edit_type_bit_nats.name = "line_edit_type_bit_nats"
 	line_edit_type_bit_nats.size = Vector2(160.0, 32.0)
 	line_edit_type_bit_nats.position = Vector2(16.0, 316.0)
 	line_edit_type_bit_nats.text = "4294967295"
 	
 	var line_edit_type_str_nats := LineEdit.new()
 	root.add_child(line_edit_type_str_nats)
+	line_edit_type_str_nats.name = "line_edit_type_str_nats"
 	line_edit_type_str_nats.size = Vector2(160.0, 32.0)
 	line_edit_type_str_nats.position = Vector2(16.0, 380.0)
 	line_edit_type_str_nats.text = "ALL"
 	
 	var line_edit_feat_inc_nats := LineEdit.new()
 	root.add_child(line_edit_feat_inc_nats)
+	line_edit_feat_inc_nats.name = "line_edit_feat_inc_nats"
 	line_edit_feat_inc_nats.size = Vector2(160.0, 32.0)
 	line_edit_feat_inc_nats.position = Vector2(16.0, 444.0)
 	line_edit_feat_inc_nats.text = "0"
 	
 	var line_edit_feat_exc_nats := LineEdit.new()
 	root.add_child(line_edit_feat_exc_nats)
+	line_edit_feat_exc_nats.name = "line_edit_feat_exc_nats"
 	line_edit_feat_exc_nats.size = Vector2(160.0, 32.0)
 	line_edit_feat_exc_nats.position = Vector2(16.0, 508.0)
 	line_edit_feat_exc_nats.text = "0"
 	
 	var check_exclude_auto := CheckBox.new()
 	root.add_child(check_exclude_auto)
+	check_exclude_auto.name = "check_exclude_auto"
 	check_exclude_auto.position = Vector2(406.0, 120.0)
 	
 	var spinbox_source := SpinBox.new()
 	root.add_child(spinbox_source)
+	spinbox_source.name = "spinbox_source"
 	spinbox_source.position = Vector2(406.0, 184.0)
 	
 	var check_teleporter := CheckBox.new()
 	root.add_child(check_teleporter)
+	check_teleporter.name = "check_teleporter"
 	check_teleporter.position = Vector2(406.0, 248.0)
 	
 	var line_edit_type_bit_sent := LineEdit.new()
 	root.add_child(line_edit_type_bit_sent)
+	line_edit_type_bit_sent.name = "line_edit_type_bit_sent"
 	line_edit_type_bit_sent.size = Vector2(160.0, 32.0)
 	line_edit_type_bit_sent.position = Vector2(406.0, 316.0)
 	line_edit_type_bit_sent.text = "4294967295"
 	
 	var line_edit_type_str_sent := LineEdit.new()
 	root.add_child(line_edit_type_str_sent)
+	line_edit_type_str_sent.name = "line_edit_type_str_sent"
 	line_edit_type_str_sent.size = Vector2(160.0, 32.0)
 	line_edit_type_str_sent.position = Vector2(406.0, 380.0)
 	line_edit_type_str_sent.text = "ALL"
 	
 	var line_edit_feat_inc_sent := LineEdit.new()
 	root.add_child(line_edit_feat_inc_sent)
+	line_edit_feat_inc_sent.name = "line_edit_feat_inc_sent"
 	line_edit_feat_inc_sent.size = Vector2(160.0, 32.0)
 	line_edit_feat_inc_sent.position = Vector2(406.0, 444.0)
 	line_edit_feat_inc_sent.text = "0"
 	
 	var line_edit_feat_exc_sent := LineEdit.new()
 	root.add_child(line_edit_feat_exc_sent)
+	line_edit_feat_exc_sent.name = "line_edit_feat_exc_sent"
 	line_edit_feat_exc_sent.size = Vector2(160.0, 32.0)
 	line_edit_feat_exc_sent.position = Vector2(406.0, 508.0)
 	line_edit_feat_exc_sent.text = "0"
@@ -167,4 +181,53 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 			root.queue_free()
 	)
 	
+	return root
+
+func get_edit_ui(done_func : Callable) -> Control:
+	var root : Panel = get_creation_ui(null, 0, done_func)
+	var title : Label = root.get_node("title")
+	title.text = "Edit Empty Node"
+	var create_button : Button = root.get_node("create_button")
+	var line_edit : LineEdit = root.get_node("line_edit")
+	for c in create_button.pressed.get_connections():
+		create_button.pressed.disconnect(c.callable)
+	
+	root.get_node("spinbox_side").value = track.side
+	root.get_node("slider_width").set_value(track.width)
+	root.get_node("check_teleporter").button_pressed = track.is_teleporter_track
+	root.get_node("check_exclude_auto").button_pressed = track.exclude_from_auto_track_targeting
+	root.get_node("line_edit_bloon_source").text = str(track.track_bloon_source_bitmask)
+	root.get_node("line_edit_type_bit_nats").text = str(track.track_round_bloon_type_filte_bitmask)
+	root.get_node("line_edit_type_str_nats").text = track.track_round_bloon_type_filter_string
+	root.get_node("line_edit_feat_inc_nats").text = str(track.track_round_bloon_feature_inclusive_filter_bitmask)
+	root.get_node("line_edit_feat_exc_nats").text = str(track.track_round_bloon_feature_exclusive_filter_bitmask)
+	root.get_node("line_edit_type_bit_sent").text = str(track.track_opponent_bloon_type_filte_bitmask)
+	root.get_node("line_edit_type_str_sent").text = track.track_opponent_bloon_type_filter_string
+	root.get_node("line_edit_feat_inc_sent").text = str(track.track_opponent_bloon_feature_inclusive_filter_bitmask)
+	root.get_node("line_edit_feat_exc_sent").text = str(track.track_opponent_bloon_feature_exclusive_filter_bitmask)
+	root.get_node("spinbox_source").value = track.source_path_id
+	line_edit.text = entity_name
+	
+	create_button.text = "Confirm"
+	create_button.pressed.connect(
+		func():
+			track.side = int(root.get_node("spinbox_side").value)
+			track.width = root.get_node("slider_width").get_value()
+			track.is_teleporter_track = root.get_node("check_teleporter").button_pressed
+			track.exclude_from_auto_track_targeting = root.get_node("check_exclude_auto").button_pressed
+			track.track_bloon_source_bitmask = int(root.get_node("line_edit_bloon_source").text)
+			track.track_round_bloon_type_filte_bitmask = int(root.get_node("line_edit_type_bit_nats").text)
+			track.track_round_bloon_type_filter_string = root.get_node("line_edit_type_str_nats").text
+			track.track_round_bloon_feature_inclusive_filter_bitmask = int(root.get_node("line_edit_feat_inc_nats").text)
+			track.track_round_bloon_feature_exclusive_filter_bitmask = int(root.get_node("line_edit_feat_exc_nats").text)
+			track.track_opponent_bloon_type_filte_bitmask = int(root.get_node("line_edit_type_bit_sent").text)
+			track.track_opponent_bloon_type_filter_string = root.get_node("line_edit_type_str_sent").text
+			track.track_opponent_bloon_feature_inclusive_filter_bitmask = int(root.get_node("line_edit_feat_inc_sent").text)
+			track.track_opponent_bloon_feature_exclusive_filter_bitmask = int(root.get_node("line_edit_feat_exc_sent").text)
+			track.source_path_id = int(root.get_node("spinbox_source").value)
+			entity_name = line_edit.text
+			tree_item.set_text(0, str(entity_id ,"| ", entity_name, " (", entity_type, ")"))
+			done_func.call(1)
+			root.queue_free()
+	)
 	return root

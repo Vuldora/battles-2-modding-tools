@@ -5,6 +5,7 @@ var value_label : Label
 var slider : Slider
 
 func _init(text : String, minv : float, defv : float, maxv : float, ticks : int) -> void:
+	name = "GenericSlider" + text
 	label = Label.new()
 	add_child(label)
 	label.text = text
@@ -30,3 +31,7 @@ func _init(text : String, minv : float, defv : float, maxv : float, ticks : int)
 
 func get_value() -> float:
 	return slider.value
+
+func set_value(value) -> void:
+	slider.value = value
+	value_label.text = "%.1f" % value
