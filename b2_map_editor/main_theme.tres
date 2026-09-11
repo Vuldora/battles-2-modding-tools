@@ -1,3 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://v2ohsnwtpopy"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gsqoc"]
+
 [resource]
+MenuButton/font_sizes/font_size = 12
+MenuButton/styles/normal = SubResource("StyleBoxEmpty_gsqoc")
+PopupMenu/font_sizes/font_size = 12

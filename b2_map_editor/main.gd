@@ -90,8 +90,7 @@ func save_as() -> void:
 	file_dialog.popup_centered_clamped.call_deferred()
 
 func _on_tree_item_selected() -> void:
-	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
+	update_buttons()
 
 func _on_button_overlay_pressed() -> void:
 	var file_dialog := FileDialog.new()
@@ -109,9 +108,8 @@ func load_overlay(path : String, source : FileDialog) -> void:
 
 func _on_button_add_node_pressed() -> void:
 	is_creating = true
-	$PanelChooseType.visible = true
-	$ButtonAddNode.disabled = true
-	$ButtonDelNode.disabled = true
+	$PanelChooseType.show()
+	update_buttons()
 	$Tree.process_mode = Node.PROCESS_MODE_DISABLED
 	$TopBar.process_mode = Node.PROCESS_MODE_DISABLED
 
@@ -121,14 +119,21 @@ func _on_button_del_node_pressed() -> void:
 	var parent_node : Entity = it.get_parent().get_metadata(0)
 	parent_node.entity_children.erase(node)
 	if it: it.free()
-	$ButtonAddNode.disabled = true
-	$ButtonDelNode.disabled = true
+	update_buttons()
+
+func _on_button_edit_node_pressed() -> void:
+	is_creating = true
+	update_buttons()
+	$Tree.process_mode = Node.PROCESS_MODE_DISABLED
+	$TopBar.process_mode = Node.PROCESS_MODE_DISABLED
+	var it : TreeItem = $Tree.get_selected()
+	var node : Entity = it.get_metadata(0)
+	add_child(node.get_edit_ui(done_with_creation))
 
 func _on_button_exit_pressed() -> void:
 	is_creating = false
 	$PanelChooseType.visible = false
-	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
+	update_buttons()
 	$Tree.process_mode = Node.PROCESS_MODE_INHERIT
 	$TopBar.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -141,22 +146,27 @@ func done_with_creation(exit_code : int) -> void:
 	if (exit_code == 0):
 		global_id_count += 1
 	is_creating = false
-	$ButtonAddNode.disabled = false
-	$ButtonDelNode.disabled = $Tree.get_selected() == $Tree.get_root()
+	update_buttons()
 	$Tree.process_mode = Node.PROCESS_MODE_INHERIT
 	$TopBar.process_mode = Node.PROCESS_MODE_INHERIT
 
 func new_file() -> void:
-	$ButtonAddNode.disabled = true
-	$ButtonDelNode.disabled = true
 	save_path = ""
 	is_saving = false
+	is_creating = false
+	update_buttons()
 	$Tree.clear()
 	root_node = Entity.new(1, "Root", null, $Tree)
 	map_header = Header.new()
 	map_header.version_code = 56
 	map_header.id_gen_current_id = 160
 	map_header.root = root_node
+
+func update_buttons() -> void:
+	var selected : TreeItem = $Tree.get_selected()
+	$ButtonAddNode.disabled = selected == null or is_creating or is_saving
+	$ButtonDelNode.disabled = $ButtonAddNode.disabled or selected == $Tree.get_root()
+	$ButtonEditNode.disabled = $ButtonDelNode.disabled
 
 func quit() -> void:
 	get_tree().quit()

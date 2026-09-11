@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dptchre20g2" path="res://textures/add_node_hover.png" id="5_kek77"]
 [ext_resource type="Texture2D" uid="uid://dejvnjpfsmdox" path="res://textures/del_node_disabled.png" id="7_5vw27"]
 [ext_resource type="Texture2D" uid="uid://c7n0y6th47qqc" path="res://textures/del_node_hover.png" id="8_4c57u"]
+[ext_resource type="Texture2D" uid="uid://ci2ain7t47m8c" path="res://textures/paint_brush.png" id="10_4c57u"]
+[ext_resource type="Texture2D" uid="uid://biasbev78g505" path="res://textures/edit_node.png" id="10_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://ctomlw6k5pb4e" path="res://textures/edit_node_hover.png" id="11_w48qg"]
+[ext_resource type="Texture2D" uid="uid://cgigpralu1ndg" path="res://textures/edit_node_disabled.png" id="12_vivmo"]
 
 [node name="Control" type="Control" unique_id=384971263]
 layout_mode = 3
@@ -20,15 +24,25 @@ grow_vertical = 2
 theme = ExtResource("1_h2yge")
 script = ExtResource("1_ig7tw")
 
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1015886142]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+
 [node name="TopBar" type="Control" parent="." unique_id=2086037808]
 anchors_preset = 0
 
+[node name="ColorRect" type="ColorRect" parent="TopBar" unique_id=1223482577]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 32.0
+color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+
 [node name="Files" type="MenuButton" parent="TopBar" unique_id=1169191541]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 112.0
-offset_bottom = 48.0
+offset_right = 64.0
+offset_bottom = 32.0
 text = "File "
 flat = false
 switch_on_hover = true
@@ -65,26 +79,25 @@ popup/item_10/id = 7
 
 [node name="View" type="MenuButton" parent="TopBar" unique_id=1192031073]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 8.0
-offset_right = 224.0
-offset_bottom = 48.0
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 32.0
 text = "View"
 flat = false
 
 [node name="ColorRectBackground" type="ColorRect" parent="." unique_id=441590727]
 layout_mode = 0
 offset_left = 280.0
-offset_top = 80.0
-offset_right = 1264.0
-offset_bottom = 696.0
+offset_top = 192.0
+offset_right = 1080.0
+offset_bottom = 704.0
 
 [node name="TextureRectOverlay" type="TextureRect" parent="." unique_id=395768347]
 layout_mode = 0
 offset_left = 280.0
-offset_top = 80.0
-offset_right = 1264.0
-offset_bottom = 696.0
+offset_top = 192.0
+offset_right = 1080.0
+offset_bottom = 704.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
@@ -92,8 +105,8 @@ stretch_mode = 5
 [node name="TextureRectBorder" type="TextureRect" parent="." unique_id=1579188406]
 layout_mode = 0
 offset_left = 280.0
-offset_top = 72.0
-offset_right = 1264.0
+offset_top = 192.0
+offset_right = 1080.0
 offset_bottom = 704.0
 mouse_filter = 2
 texture = ExtResource("2_0xm2m")
@@ -103,25 +116,26 @@ stretch_mode = 5
 [node name="Tree" type="Tree" parent="." unique_id=1073663916]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 120.0
+offset_top = 104.0
 offset_right = 264.0
 offset_bottom = 704.0
 
 [node name="Label2" type="Label" parent="." unique_id=1746243226]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 88.0
+offset_top = 72.0
 offset_right = 112.0
-offset_bottom = 111.0
+offset_bottom = 95.0
 text = "Scene Tree"
 vertical_alignment = 1
 
 [node name="ButtonAddNode" type="TextureButton" parent="." unique_id=541180976]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 80.0
+offset_top = 64.0
 offset_right = 264.0
-offset_bottom = 120.0
+offset_bottom = 104.0
+tooltip_text = "Add Node"
 texture_normal = ExtResource("4_lquwl")
 texture_hover = ExtResource("5_kek77")
 texture_disabled = ExtResource("5_272bh")
@@ -130,13 +144,26 @@ stretch_mode = 5
 
 [node name="ButtonDelNode" type="TextureButton" parent="." unique_id=1423438187]
 layout_mode = 0
-offset_left = 176.0
-offset_top = 80.0
-offset_right = 216.0
-offset_bottom = 120.0
+offset_left = 184.0
+offset_top = 64.0
+offset_right = 224.0
+offset_bottom = 104.0
+tooltip_text = "Delete Node"
 texture_normal = ExtResource("5_7mycd")
 texture_hover = ExtResource("8_4c57u")
 texture_disabled = ExtResource("7_5vw27")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ButtonEditNode" type="TextureButton" parent="." unique_id=986600119]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 64.0
+offset_right = 184.0
+offset_bottom = 104.0
+texture_normal = ExtResource("10_ycdy4")
+texture_hover = ExtResource("11_w48qg")
+texture_disabled = ExtResource("12_vivmo")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -189,8 +216,18 @@ offset_right = 216.0
 offset_bottom = 136.0
 text = "Continue"
 
+[node name="ToolBrush" type="Button" parent="." unique_id=144981143]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 112.0
+offset_right = 360.0
+offset_bottom = 184.0
+tooltip_text = "Brush Tool"
+icon = ExtResource("10_4c57u")
+
 [connection signal="item_selected" from="Tree" to="." method="_on_tree_item_selected"]
 [connection signal="pressed" from="ButtonAddNode" to="." method="_on_button_add_node_pressed"]
 [connection signal="pressed" from="ButtonDelNode" to="." method="_on_button_del_node_pressed"]
+[connection signal="pressed" from="ButtonEditNode" to="." method="_on_button_edit_node_pressed"]
 [connection signal="pressed" from="PanelChooseType/ButtonExit" to="." method="_on_button_exit_pressed"]
 [connection signal="pressed" from="PanelChooseType/ButtonContinueNode" to="." method="_on_button_continue_node_pressed"]

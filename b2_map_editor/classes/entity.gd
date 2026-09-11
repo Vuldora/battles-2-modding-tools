@@ -96,3 +96,21 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	)
 	
 	return root
+
+func get_edit_ui(done_func : Callable) -> Control:
+	var root : Panel = get_creation_ui(null, 0, done_func)
+	var title : Label = root.get_node("title")
+	title.text = "Edit Empty Node"
+	var create_button : Button = root.get_node("create_button")
+	var line_edit : LineEdit = root.get_node("line_edit")
+	for c in create_button.pressed.get_connections():
+		create_button.pressed.disconnect(c.callable)
+	create_button.text = "Confirm"
+	create_button.pressed.connect(
+		func():
+			entity_name = line_edit.text
+			tree_item.set_text(0, str(entity_id ,"| ", entity_name, " (", entity_type, ")"))
+			done_func.call(1)
+			root.queue_free()
+	)
+	return root

@@ -80,26 +80,31 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	root.add_child(line_edit_bloon_source)
 	line_edit_bloon_source.size = Vector2(160.0, 32.0)
 	line_edit_bloon_source.position = Vector2(16.0, 252.0)
+	line_edit_bloon_source.text = "2"
 	
 	var line_edit_type_bit_nats := LineEdit.new()
 	root.add_child(line_edit_type_bit_nats)
 	line_edit_type_bit_nats.size = Vector2(160.0, 32.0)
 	line_edit_type_bit_nats.position = Vector2(16.0, 316.0)
+	line_edit_type_bit_nats.text = "4294967295"
 	
 	var line_edit_type_str_nats := LineEdit.new()
 	root.add_child(line_edit_type_str_nats)
 	line_edit_type_str_nats.size = Vector2(160.0, 32.0)
 	line_edit_type_str_nats.position = Vector2(16.0, 380.0)
+	line_edit_type_str_nats.text = "ALL"
 	
 	var line_edit_feat_inc_nats := LineEdit.new()
 	root.add_child(line_edit_feat_inc_nats)
 	line_edit_feat_inc_nats.size = Vector2(160.0, 32.0)
 	line_edit_feat_inc_nats.position = Vector2(16.0, 444.0)
+	line_edit_feat_inc_nats.text = "0"
 	
 	var line_edit_feat_exc_nats := LineEdit.new()
 	root.add_child(line_edit_feat_exc_nats)
 	line_edit_feat_exc_nats.size = Vector2(160.0, 32.0)
 	line_edit_feat_exc_nats.position = Vector2(16.0, 508.0)
+	line_edit_feat_exc_nats.text = "0"
 	
 	var check_exclude_auto := CheckBox.new()
 	root.add_child(check_exclude_auto)
@@ -117,21 +122,25 @@ static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) 
 	root.add_child(line_edit_type_bit_sent)
 	line_edit_type_bit_sent.size = Vector2(160.0, 32.0)
 	line_edit_type_bit_sent.position = Vector2(406.0, 316.0)
+	line_edit_type_bit_sent.text = "4294967295"
 	
 	var line_edit_type_str_sent := LineEdit.new()
 	root.add_child(line_edit_type_str_sent)
 	line_edit_type_str_sent.size = Vector2(160.0, 32.0)
 	line_edit_type_str_sent.position = Vector2(406.0, 380.0)
+	line_edit_type_str_sent.text = "ALL"
 	
 	var line_edit_feat_inc_sent := LineEdit.new()
 	root.add_child(line_edit_feat_inc_sent)
 	line_edit_feat_inc_sent.size = Vector2(160.0, 32.0)
 	line_edit_feat_inc_sent.position = Vector2(406.0, 444.0)
+	line_edit_feat_inc_sent.text = "0"
 	
 	var line_edit_feat_exc_sent := LineEdit.new()
 	root.add_child(line_edit_feat_exc_sent)
 	line_edit_feat_exc_sent.size = Vector2(160.0, 32.0)
 	line_edit_feat_exc_sent.position = Vector2(406.0, 508.0)
+	line_edit_feat_exc_sent.text = "0"
 	
 	create_button.position = Vector2(360.0, 560.0)
 	create_button.pressed.connect(
