@@ -48,6 +48,11 @@ func from_dict(data : Dictionary) -> void:
 		entity.from_dict(c)
 		entity_children.append(entity)
 
+func destroy() -> void:
+	if tree_item: tree_item.free()
+	for c in entity_children:
+		c.destroy()
+
 static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable) -> Control:
 	var root := Panel.new()
 	root.size = Vector2(300.0, 128.0)

@@ -24,6 +24,13 @@ func to_dict() -> Dictionary:
 	dict.set("entity_translation", [entity_translation.x, entity_translation.y, entity_translation.z])
 	return dict
 
+func destroy() -> void:
+	if tree_item: tree_item.destroy()
+	visual.queue_free()
+	visual = null
+	for c in entity_children:
+		c.destroy()
+
 func from_dict(data : Dictionary) -> void:
 	super.from_dict(data)
 	var trans_arr : Array[float] = data.get("entity_translation", [0.0, 0.0, 0.0])

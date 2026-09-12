@@ -171,11 +171,8 @@ func _on_button_del_node_pressed() -> void:
 	var it : TreeItem = $Control/Tree.get_selected()
 	var node : Entity = it.get_metadata(0)
 	var parent_node : Entity = it.get_parent().get_metadata(0)
-	if node is EntityMapAreaNode or node is EntityTrackPathNode:
-		node.visual.queue_free()
-		node.visual = null
 	parent_node.entity_children.erase(node)
-	if it: it.free()
+	node.destroy()
 	update_buttons()
 
 func _on_button_edit_node_pressed() -> void:

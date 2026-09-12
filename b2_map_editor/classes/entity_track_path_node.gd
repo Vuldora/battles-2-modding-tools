@@ -40,6 +40,13 @@ func from_dict(data : Dictionary) -> void:
 	var trans_arr : Array[float] = data.get("entity_translation", [0.0, 0.0, 0.0])
 	entity_translation = Vector3(trans_arr[0], trans_arr[1], trans_arr[2])
 
+func destroy() -> void:
+	if tree_item: tree_item.destroy()
+	visual.queue_free()
+	visual = null
+	for c in entity_children:
+		c.destroy()
+
 static func get_creation_ui(tree : Tree, global_id : int, done_func : Callable,
 visual_parent : Control = null, visual_func : Callable = func(): pass) -> Control:
 	var root := super.get_creation_ui(tree, global_id, done_func)
