@@ -17,7 +17,7 @@ class MainWindow(QtWidgets.QWidget):
 
         # Default paths
         if current_os == "Windows":
-            self.game_data_path = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Bloons TD Battles 2"
+            self.game_data_path = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Bloons TD Battles 2\\game_data\\game_project\\asset_bundles"
         elif current_os == "Linux":
             self.game_data_path = f"{Path.home()}/.local/share/Steam/steamapps/common/Bloons TD Battles 2/game_data/game_project/asset_bundles"
         else:
