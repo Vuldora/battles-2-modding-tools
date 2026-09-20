@@ -185,14 +185,15 @@ def extract_jet(jet_path, target_dir):
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) == 2:
+        target = sys.argv[1][:-4]
+    elif len(sys.argv) == 3:
+        target = sys.argv[2]
+    else:
         print(
             "Usage: python extract_jet.py "
             "<input.jet> <output_directory>"
         )
         sys.exit(1)
 
-    extract_jet(
-        sys.argv[1],
-        sys.argv[2]
-    )
+    extract_jet(sys.argv[1], target)
