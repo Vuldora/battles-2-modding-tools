@@ -118,6 +118,8 @@ def process_file(
         data = f.read()
 
     if mode == "encrypt":
+        if data.startswith(MAGIC): # skip if already encrypted
+            return
         result = encrypt_bin_data(data, compress=compress)
     else:
         result, _ = decrypt_bin_data(data)
@@ -190,13 +192,13 @@ def process_path(
                 compress,
             )
 
-            print(f"[V] {mode}: {source_file} -> {destination}")
+            print(f"[V] {mode}: {source_file}")
 
         except ValueError as exc:
             # In decrypt mode, directories may contain non-BIN files.
             # Skip them rather than stopping the entire recursive operation.
             if mode == "decrypt":
-                print(f"[!] Skipping {source_file}: {exc}")
+                pass
             else:
                 raise
 

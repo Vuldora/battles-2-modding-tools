@@ -124,6 +124,27 @@ func save_as() -> void:
 	file_dialog.canceled.connect(
 		func():
 			is_saving = false
+			file_dialog.queue_free()
+	)
+	file_dialog.popup_centered_clamped.call_deferred()
+
+func load_file() -> void:
+	if is_saving: return
+	is_saving = true
+	var file_dialog := FileDialog.new()
+	add_child(file_dialog)
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.file_selected.connect(
+		func(path):
+			save_path = path
+			is_saving = false
+			file_dialog.queue_free()
+	)
+	file_dialog.canceled.connect(
+		func():
+			is_saving = false
+			file_dialog.queue_free()
 	)
 	file_dialog.popup_centered_clamped.call_deferred()
 

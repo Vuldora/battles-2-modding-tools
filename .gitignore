@@ -1,1 +1,6 @@
 */*.png
+*/*__pycache__
+b2_mlqt/build
+b2_mlqt/dist
+b2_mlqt/b2_mlqt.spec
+
