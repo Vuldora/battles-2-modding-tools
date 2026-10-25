@@ -56,6 +56,25 @@ Decrypt an entire folder
 
 Encrypt file without modifying the original
 `python bin_tool.py -e file1 -o file2`
+
+# JET Tool (All-in-One)
+Combines all other JET scripts into one convent and easy to use tool. in addition to extracting an archive, it will automatically decrypt all encrypted files, add file extensions where appropriate, and lint JSON files.
+As for packing archives it will also do extra work there such as automatically encrypting files that should be encrypted, as well as removing unnecessary file extensions.
+
+Usage:
+
+Extract JET here
+`python jet.py file.jet`
+
+Extract JET into folder
+`python jet.py file.jet folder_name`
+
+Pack JET from folder
+`python jet.py folder_name`
+
+Pack JET from folder and rename
+`python jet.py folder_name my_jet.jet`
+
 # MLQT
 Graphical mod loader tool for convenience, instructions are included in the program. You can replicate everything it does by copy pasting modified JETs manually into the aforementioned game data and OTA folders if you prefer.
 # File Formats
