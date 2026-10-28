@@ -46,7 +46,14 @@ class ExtractTab(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def call_extract(self):
-        full_extract(self.source_selector.line_edit.text(), self.destination_selector.line_edit.text())
+        try:
+            full_extract(
+              self.source_selector.line_edit.text(),
+              self.destination_selector.line_edit.text()
+            )
+            QtWidgets.QMessageBox.information(None, "Success", "Archive extracted successfully")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"An error occurred:\n{e}")
 
     def update_button(self): # Enable button if both line edits aren't empty
         self.button.setEnabled(
@@ -81,10 +88,14 @@ class ArchiveTab(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def call_pack(self):
-        full_pack(
-            Path(self.source_selector.line_edit.text()),
-            Path(self.destination_selector.line_edit.text())
-        )
+        try:
+            full_pack(
+                Path(self.source_selector.line_edit.text()),
+                Path(self.destination_selector.line_edit.text())
+            )
+            QtWidgets.QMessageBox.information(None, "Success", "File saved successfully")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"An error occurred:\n{e}")
 
     def update_button(self): # Enable button if both line edits aren't empty
         self.button.setEnabled(
@@ -150,7 +161,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication([])
 
     widget = MainWindow()
-    #widget.resize(800, 600)
+    widget.resize(400, 240)
     widget.setWindowTitle("JET Archive Manager")
     widget.show()
 
