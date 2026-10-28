@@ -80,6 +80,23 @@ def encrypt_neccessary(directory):
         process_file(file, file, "encrypt", False)
         print(f"{file} is being encrypted")
 
+def full_extract(source, destination):
+    destination_path = Path(destination)
+    extract_jet(source, destination) # extract
+    process_path(destination_path, None, "decrypt", False) # decrypt
+    jsonify(destination_path) # rename to json and lint
+    csvify(destination_path) # rename to csv
+
+def full_pack(source_path, destination_path):
+    with tempfile.TemporaryDirectory() as temp_dir:
+        working_dir = Path(temp_dir) / source_path.name
+        shutil.copytree(source_path, working_dir)
+
+        remove_extension(working_dir, ".json", JSON_EXT)
+        remove_extension(working_dir, ".csv", CSV_EXT)
+        encrypt_neccessary(working_dir)
+        pack_jet(working_dir, destination_path)
+
 if __name__ == "__main__":
 
     if len(sys.argv) <= 1 or len(sys.argv) >= 4:
@@ -119,12 +136,7 @@ if __name__ == "__main__":
             )
             sys.exit(1)
 
-        destination_path = Path(destination)
-
-        extract_jet(source, destination) # extract
-        process_path(destination_path, None, "decrypt", False) # decrypt
-        jsonify(destination_path) # rename to json and lint
-        csvify(destination_path) # rename to csv
+        full_extract(source, destination)
 
     # Pack
     else:
@@ -137,14 +149,7 @@ if __name__ == "__main__":
         if not destination:
             destination_path = source_path.parent / (source_path.name + ".jet")
         else:
-          destination_path = Path(destination)
+            destination_path = Path(destination)
 
-        with tempfile.TemporaryDirectory() as temp_dir:
-            working_dir = Path(temp_dir) / source_path.name
-            shutil.copytree(source_path, working_dir)
-
-            remove_extension(working_dir, ".json", JSON_EXT)
-            remove_extension(working_dir, ".csv", CSV_EXT)
-            encrypt_neccessary(working_dir)
-            pack_jet(working_dir, destination_path)
+        full_pack(source_path, destination_path)
 

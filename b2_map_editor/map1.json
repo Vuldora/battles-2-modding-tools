@@ -1,0 +1,391 @@
+{
+  "id_gen_current_id": 160,
+  "root": {
+    "entity_children": [
+      {
+        "entity_children": [
+          {
+            "entity_children": [
+              {
+                "entity_id": 4,
+                "entity_name": "node_4",
+                "entity_translation": [
+                  29.8571319580078,
+                  0.0,
+                  -97.428581237793
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 5,
+                  "node_type": 0
+                }
+              },
+              {
+                "entity_id": 5,
+                "entity_name": "node_5",
+                "entity_translation": [
+                  58.7713928222656,
+                  0.0,
+                  -80.7714309692383
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 6,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 6,
+                "entity_name": "node_6",
+                "entity_translation": [
+                  98.6856842041016,
+                  0.0,
+                  -58.1428680419922
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 7,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 7,
+                "entity_name": "node_7",
+                "entity_translation": [
+                  99.6285552978516,
+                  0.0,
+                  -16.3428688049316
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 8,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 8,
+                "entity_name": "node_8",
+                "entity_translation": [
+                  82.3428421020508,
+                  0.0,
+                  14.1428413391113
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 9,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 9,
+                "entity_name": "node_9",
+                "entity_translation": [
+                  109.057106018066,
+                  0.0,
+                  52.1714210510254
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 10,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 10,
+                "entity_name": "node_10",
+                "entity_translation": [
+                  138.599975585938,
+                  0.0,
+                  76.05712890625
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 11,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 11,
+                "entity_name": "node_11",
+                "entity_translation": [
+                  157.771423339844,
+                  0.0,
+                  89.2571334838867
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 12,
+                  "node_type": 2
+                }
+              }
+            ],
+            "entity_id": 3,
+            "entity_name": "Track 1",
+            "entity_type": "Track",
+            "track": {
+              "exclude_from_auto_track_targeting": false,
+              "is_teleporter_track": false,
+              "side": 0,
+              "source_path_id": 0,
+              "track_bloon_source_bitmask": 1,
+              "track_opponent_bloon_feature_exclusive_filter_bitmask": 0,
+              "track_opponent_bloon_feature_inclusive_filter_bitmask": 0,
+              "track_opponent_bloon_type_filte_bitmask": 4294967295,
+              "track_opponent_bloon_type_filter_string": "ALL",
+              "track_round_bloon_feature_exclusive_filter_bitmask": 0,
+              "track_round_bloon_feature_inclusive_filter_bitmask": 0,
+              "track_round_bloon_type_filte_bitmask": 4294967295,
+              "track_round_bloon_type_filter_string": "ALL",
+              "width": 3.0
+            }
+          },
+          {
+            "entity_children": [
+              {
+                "entity_id": 13,
+                "entity_name": "node_13",
+                "entity_translation": [
+                  165.314270019531,
+                  0.0,
+                  -100.257148742676
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 14,
+                  "node_type": 0
+                }
+              },
+              {
+                "entity_id": 14,
+                "entity_name": "node_14",
+                "entity_translation": [
+                  138.91423034668,
+                  0.0,
+                  -85.485725402832
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 15,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 15,
+                "entity_name": "node_15",
+                "entity_translation": [
+                  121.314262390137,
+                  0.0,
+                  -66.0000152587891
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 16,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 16,
+                "entity_name": "node_16",
+                "entity_translation": [
+                  111.571395874023,
+                  0.0,
+                  -41.1714324951172
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 17,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 17,
+                "entity_name": "node_17",
+                "entity_translation": [
+                  84.2285537719727,
+                  0.0,
+                  -23.8857231140137
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 18,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 18,
+                "entity_name": "node_18",
+                "entity_translation": [
+                  62.5428428649902,
+                  0.0,
+                  6.91427612304688
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 19,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 19,
+                "entity_name": "node_19",
+                "entity_translation": [
+                  47.1428413391113,
+                  0.0,
+                  41.1714210510254
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 20,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 20,
+                "entity_name": "node_20",
+                "entity_translation": [
+                  27.6571311950684,
+                  0.0,
+                  68.8285522460938
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 21,
+                  "node_type": 2
+                }
+              },
+              {
+                "entity_id": 21,
+                "entity_name": "node_21",
+                "entity_translation": [
+                  12.8856840133667,
+                  0.0,
+                  93.0285491943359
+                ],
+                "entity_type": "TrackPathNode",
+                "path_node": {
+                  "next_node": 22,
+                  "node_type": 2
+                }
+              }
+            ],
+            "entity_id": 12,
+            "entity_name": "Track",
+            "entity_type": "Track",
+            "track": {
+              "exclude_from_auto_track_targeting": false,
+              "is_teleporter_track": false,
+              "side": 0,
+              "source_path_id": 0,
+              "track_bloon_source_bitmask": 2,
+              "track_opponent_bloon_feature_exclusive_filter_bitmask": 0,
+              "track_opponent_bloon_feature_inclusive_filter_bitmask": 0,
+              "track_opponent_bloon_type_filte_bitmask": 4294967295,
+              "track_opponent_bloon_type_filter_string": "ALL",
+              "track_round_bloon_feature_exclusive_filter_bitmask": 0,
+              "track_round_bloon_feature_inclusive_filter_bitmask": 0,
+              "track_round_bloon_type_filte_bitmask": 4294967295,
+              "track_round_bloon_type_filter_string": "ALL",
+              "width": 3.0
+            }
+          }
+        ],
+        "entity_id": 2,
+        "entity_name": "Tracks",
+        "entity_type": "Empty"
+      },
+      {
+        "entity_children": [
+          {
+            "entity_children": [
+              {
+                "entity_id": 24,
+                "entity_name": "node_24",
+                "entity_translation": [
+                  89.5713958740234,
+                  0.0,
+                  -101.200004577637
+                ],
+                "entity_type": "MapArea_Node"
+              },
+              {
+                "entity_id": 25,
+                "entity_name": "node_25",
+                "entity_translation": [
+                  90.5142593383789,
+                  0.0,
+                  -89.5714340209961
+                ],
+                "entity_type": "MapArea_Node"
+              },
+              {
+                "entity_id": 26,
+                "entity_name": "node_26",
+                "entity_translation": [
+                  109.999969482422,
+                  0.0,
+                  -90.514289855957
+                ],
+                "entity_type": "MapArea_Node"
+              },
+              {
+                "entity_id": 27,
+                "entity_name": "node_27",
+                "entity_translation": [
+                  132.314239501953,
+                  0.0,
+                  -98.6857223510742
+                ],
+                "entity_type": "MapArea_Node"
+              },
+              {
+                "entity_id": 28,
+                "entity_name": "node_28",
+                "entity_translation": [
+                  114.399971008301,
+                  0.0,
+                  -112.828582763672
+                ],
+                "entity_type": "MapArea_Node"
+              }
+            ],
+            "entity_id": 23,
+            "entity_name": "water",
+            "entity_type": "MapArea",
+            "map_area": {
+              "attached_to_bone": false,
+              "elevation_offset": 0.0,
+              "hit_area_offset": 0.0,
+              "is_removable": false,
+              "is_teleporter": false,
+              "layer": 0,
+              "side": "Right",
+              "source_entity_id": 0,
+              "type": "Water"
+            }
+          }
+        ],
+        "entity_id": 22,
+        "entity_name": "Map Areas",
+        "entity_type": "Empty"
+      },
+      {
+        "entity_id": 29,
+        "entity_name": "",
+        "entity_rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "entity_type": "MapSideReference",
+        "map_side_reference": {
+          "mode": 1,
+          "side": 1
+        }
+      }
+    ],
+    "entity_id": 1,
+    "entity_name": "Root",
+    "entity_type": "Empty"
+  },
+  "version_code": 56
+}
