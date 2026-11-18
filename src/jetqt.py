@@ -46,10 +46,12 @@ class ExtractTab(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def call_extract(self):
+        dest_path = self.destination_selector.line_edit.text() + "/" + Path(self.source_selector.line_edit.text()).stem
+        Path(dest_path).mkdir(parents=True, exist_ok=True)
         try:
             full_extract(
               self.source_selector.line_edit.text(),
-              self.destination_selector.line_edit.text()
+              dest_path
             )
             QtWidgets.QMessageBox.information(None, "Success", "Archive extracted successfully")
         except Exception as e:

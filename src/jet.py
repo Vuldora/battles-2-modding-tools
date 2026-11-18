@@ -2,38 +2,40 @@ import sys
 import json
 import tempfile
 import shutil
+from PIL import Image
 from pathlib import Path
 from extract_jet import extract_jet
 from archive_jet import pack_jet
 from bin_tool import process_path, process_file
+from jpng2png import jpng_to_png, is_jpng
+from png2jpng import png_to_jpng
 
 JSON_EXT = {
-    ".scene",
-    ".tower_blueprint",
-    ".hero_blueprint",
     ".agent_blueprint",
-    ".track_list",
-    ".track_metadata",
-    ".gamerules",
+    ".animation",
     ".animcontroller",
-    ".colours",
-    ".chests",
-    ".guild_symbols",
-    ".hint_table",
-    ".medals",
-    ".trophyrules",
-    ".items"
-    ".item_bundle",
-    ".season",
-    ".b_school_scenario",
+    ".animseq"
     ".b_school_opps",
     ".b_school_scenario_eco_target",
+    ".b_school_scenario",
+    ".chests",
+    ".colours",
+    ".gamerules",
+    ".guild_symbols",
+    ".hero_blueprint",
+    ".hint_table",
+    ".item_bundle",
+    ".items"
+    ".medals",
+    ".scene",
+    ".season",
+    ".tower_blueprint",
     ".tower_info",
-    ".animation",
+    ".track_list",
+    ".track_metadata",
+    ".trophyrules",
     ".ui_controller",
     ".ui_theme",
-    ".animseq"
-
 }
 
 CSV_EXT = {
@@ -43,49 +45,62 @@ CSV_EXT = {
     ".bloons"
 }
 
-# Recursively turn the appropriate files in a directory into linted json
-def jsonify(directory):
-    json_files = [
-        file
-        for file in directory.rglob("*")
-        if file.is_file() and file.suffix in JSON_EXT
-    ]
+JPNG_STRUCT = "<IIHBBI"
 
-    for file in json_files:
-        #print(f"Linting {file}...") # Uncomment this line to see what is failing at this stage
-        with file.open("r", encoding="utf-8") as f:
-            data = json.load(f)
+# Converts and cleans up the JET contents so they become more human-readable
+def normalize(directory):
+    for f in directory.rglob("*"):
+        if not f.is_file(): continue
 
-        new_file = file.with_name(file.name + ".json")
-        file.rename(new_file)
+        if f.suffix in CSV_EXT: # For CSV files only add the extension and nothing else
+            f.rename(f.with_name(f.name + ".csv"))
 
-        with new_file.open("w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-            f.write("\n")
+        elif f.suffix in JSON_EXT: # For JSON files also lint them on top of the rename
+            f = f.rename(f.with_name(f.name + ".json"))
 
-# Same as above but for CSV
-def csvify(directory):
-    csv_file = [
-        file
-        for file in directory.rglob("*")
-        if file.is_file() and file.suffix in CSV_EXT
-    ]
+            try:
+                with f.open("r", encoding="utf-8") as file:
+                    data = json.load(file)
 
-    for file in csv_file:
-        new_file = file.with_name(file.name + ".csv")
-        file.rename(new_file)
+                with f.open("w", encoding="utf-8") as file:
+                    json.dump(data, file, indent=4, ensure_ascii=False)
+                    file.write("\n")
 
-# Removes extensions recursively
-def remove_extension(directory, extension, ext_list):
-    files = [
-        file
-        for file in directory.rglob("*")
-        if file.is_file() and file.suffix in extension
-    ]
+            except (json.JSONDecodeError, OSError) as e:
+                  print(f"Failed to lint {f}: {e}")
 
-    for file in files:
-        if file.with_suffix("").suffix in ext_list:
-            file.rename(file.with_suffix(""))
+        elif f.suffix == ".png": # Check if a jpng is larping as a png, if it is convert it to png
+            with Image.open(f) as img:
+                if img.format != "JPEG": continue
+
+                if is_jpng(f):
+                    f = f.rename(f.with_suffix(".jpng"))
+                    jpng_to_png(f, f.with_suffix(".png"), True)
+                    f.unlink()
+
+                else:
+                    f.rename(f.with_suffix(".jpg"))
+
+# Opposite of the function above, reverses all QoL so that the game can read the JET content
+def assemble(directory):
+    extensions = CSV_EXT | JSON_EXT
+
+    for f in directory.rglob("*"):
+        if not f.is_file(): continue
+
+        if f.suffix in [".json", ".csv"] and f.with_suffix("") in extensions:
+            f.rename(f.with_suffix(""))
+
+        elif f.suffix == ".png":
+            with Image.open(f) as img:
+                if img.format == "PNG":
+                    output_path = f.with_suffix(".jpng")
+                    png_to_jpng(f, output_path, 100, True)
+                    f.unlink()
+                    output_path.rename(output_path.with_suffix(".png"))
+
+        elif f.suffix == ".jpg":
+            f.rename(f.with_suffix(".png"))
 
 # Encrypts files that should be encrypted
 def encrypt_neccessary(directory):
@@ -103,16 +118,14 @@ def full_extract(source, destination):
     destination_path = Path(destination)
     extract_jet(source, destination) # extract
     process_path(destination_path, None, "decrypt", False) # decrypt
-    jsonify(destination_path) # rename to json and lint
-    csvify(destination_path) # rename to csv
+    normalize(destination_path) # add csv/jsonfile extension and lint, convert jpng to png
 
 def full_pack(source_path, destination_path):
     with tempfile.TemporaryDirectory() as temp_dir:
         working_dir = Path(temp_dir) / source_path.name
         shutil.copytree(source_path, working_dir)
 
-        remove_extension(working_dir, ".json", JSON_EXT)
-        remove_extension(working_dir, ".csv", CSV_EXT)
+        assemble(working_dir)
         encrypt_neccessary(working_dir)
         pack_jet(working_dir, destination_path)
 
