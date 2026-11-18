@@ -14,7 +14,26 @@ JSON_EXT = {
     ".agent_blueprint",
     ".track_list",
     ".track_metadata",
-    ".gamerules"
+    ".gamerules",
+    ".animcontroller",
+    ".colours",
+    ".chests",
+    ".guild_symbols",
+    ".hint_table",
+    ".medals",
+    ".trophyrules",
+    ".items"
+    ".item_bundle",
+    ".season",
+    ".b_school_scenario",
+    ".b_school_opps",
+    ".b_school_scenario_eco_target",
+    ".tower_info",
+    ".animation",
+    ".ui_controller",
+    ".ui_theme",
+    ".animseq"
+
 }
 
 CSV_EXT = {
