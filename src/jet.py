@@ -88,7 +88,7 @@ def assemble(directory):
     for f in directory.rglob("*"):
         if not f.is_file(): continue
 
-        if f.suffix in [".json", ".csv"] and f.with_suffix("") in extensions:
+        if f.suffix in [".json", ".csv"] and f.with_suffix("").suffix in extensions:
             f.rename(f.with_suffix(""))
 
         elif f.suffix == ".png":
