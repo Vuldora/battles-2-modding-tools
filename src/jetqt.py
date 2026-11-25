@@ -5,6 +5,8 @@ import subprocess
 from jet import full_extract, full_pack
 from pathlib import Path
 
+
+
 class MainWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -161,6 +163,8 @@ class FileSelectorLine(QtWidgets.QWidget):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
+
+    app.setWindowIcon(QtGui.QIcon("media/overclock.png"))
 
     widget = MainWindow()
     widget.resize(400, 240)

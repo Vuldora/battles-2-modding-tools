@@ -27,6 +27,7 @@ JSON_EXT = {
     ".item_bundle",
     ".items"
     ".medals",
+    ".mesh_settings",
     ".scene",
     ".season",
     ".tower_blueprint",

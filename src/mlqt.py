@@ -283,6 +283,8 @@ def copy_if_different(src, dst):
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
 
+    app.setWindowIcon(QtGui.QIcon("media/crate.png"))
+
     widget = MainWindow()
     widget.show()
 
